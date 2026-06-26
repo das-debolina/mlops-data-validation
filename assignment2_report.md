@@ -59,14 +59,14 @@ Counts are reproducible via `python profile_issues.py`. Percentages are of the
 
 | Expectation | Result | What it caught |
 |---|---|---|
-| `customer_id` unique | ❌ 568 unexpected | repeated IDs across records |
-| `customer_id` not null | ❌ 150 unexpected | blank IDs |
-| `age` between 0 and 120 | ❌ 384 unexpected | 199 negative + 185 over-120 |
-| `email` matches regex | ❌ 389 unexpected | `@domain.com`, `user@`, `no-dot@com`, etc. |
-| `salary` not null `mostly=0.95` | ❌ 425 null | only 91.53% present, below the 95% bar |
-| `country` in allowed set | ❌ 301 unexpected | India, Spain, Germany, `InvalidCountry`, … |
-| `signup_date` datetime type | ❌ 5,001 unexpected (100% of non-null rows) | column is stored as strings, not datetime; includes 242 invalid date strings |
-| table row count 500–1000 | ❌ observed 5,015 | dataset far larger than expected |
+| `customer_id` unique | Fail — 568 unexpected | repeated IDs across records |
+| `customer_id` not null | Fail — 150 unexpected | blank IDs |
+| `age` between 0 and 120 | Fail — 384 unexpected | 199 negative + 185 over-120 |
+| `email` matches regex | Fail — 389 unexpected | `@domain.com`, `user@`, `no-dot@com`, etc. |
+| `salary` not null `mostly=0.95` | Fail — 425 null | only 91.53% present, below the 95% bar |
+| `country` in allowed set | Fail — 301 unexpected | India, Spain, Germany, `InvalidCountry`, … |
+| `signup_date` datetime type | Fail — 5001 unexpected (100% of non-null rows) | column is stored as strings, not datetime; includes 242 invalid date strings |
+| table row count 500–1000 | Fail — observed 5,015 | dataset far larger than expected |
 
 Additional cleaning concern surfaced by the `clean_phone` utility (not an
 expectation but documented for completeness): the `phone` column mixes
