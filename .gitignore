@@ -1,0 +1,7 @@
+# Great Expectations runtime artifacts (keep config, ignore local runs)
+gx/uncommitted/
+.pytest_cache/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
