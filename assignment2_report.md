@@ -26,6 +26,40 @@ The Overview reports 8 evaluated expectations, 0 successful, 8 unsuccessful
 Counts are reproducible via `python profile_issues.py`. Percentages are of the
 5,015 total rows.
 
+| Column / scope | Issue | Count | % of rows |
+|---|---|---:|---:|
+| **customer_id** | Missing (null) | 150 | 2.99% |
+| **customer_id** | Non-unique ID values | 568 | 11.33% |
+| (rows) | Fully duplicated records (rows involved) | 30 | 0.60% |
+| **age** | Missing (null) | 147 | 2.93% |
+| **age** | Negative (< 0) | 199 | 3.97% |
+| **age** | Above 120 | 185 | 3.69% |
+| **email** | Missing (null) | 438 | 8.73% |
+| **email** | Invalid format (non-null) | 389 | 7.76% |
+| **salary** | Missing (null) | 425 | 8.47% |
+| **salary** | Present rate (91.53%) below 95% threshold | — | — |
+| **salary** | Negative (< 0) | 159 | 3.17% |
+| **country** | Missing (null) | 41 | 0.82% |
+| **country** | Outside {USA, Canada, UK, Australia} | 301 | 6.00% |
+| **signup_date** | Missing (null) | 14 | 0.28% |
+| **signup_date** | Invalid / impossible date strings (e.g. `2023-02-30`, `2023-13-01`, `not-a-date`) | 242 | 4.83% |
+| **signup_date** | Stored as string, not datetime type | all | 100% |
+| (table) | Row count 5,015 outside expected 500–1000 | — | — |
+
+
+### How each expectation maps to a failure
+
+| Expectation | Result | What it caught |
+|---|---|---|
+| `customer_id` unique | ❌ 568 unexpected | repeated IDs across records |
+| `customer_id` not null | ❌ 150 unexpected | blank IDs |
+| `age` between 0 and 120 | ❌ 384 unexpected | 199 negative + 185 over-120 |
+| `email` matches regex | ❌ 389 unexpected | `@domain.com`, `user@`, `no-dot@com`, etc. |
+| `salary` not null `mostly=0.95` | ❌ 425 null | only 91.53% present, below the 95% bar |
+| `country` in allowed set | ❌ 301 unexpected | India, Spain, Germany, `InvalidCountry`, … |
+| `signup_date` datetime type | ❌ 5,001 unexpected (100% of non-null rows) | column is stored as strings, not datetime; includes 242 invalid date strings |
+| table row count 500–1000 | ❌ observed 5,015 | dataset far larger than expected |
+
 Additional cleaning concern surfaced by the `clean_phone` utility (not an
 expectation but documented for completeness): the `phone` column mixes
 `4723534498`, `423.366.4508`, `(318) 414-9221`, `733 274 6639` and junk values
