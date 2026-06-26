@@ -12,7 +12,13 @@ messy dataset. The screenshot below is the Great Expectations Data Docs
 validation result page, produced by `python great_expectations_setup.py` and
 opened from `gx/uncommitted/data_docs/local_site/index.html`.
 
-![Great Expectations validation results](report_assets/Screenshot_validation_results.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_1.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_2.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_3.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_4.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_5.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_6.png)
+![Great Expectations validation results](report_assets/Screenshot_validation_result_7.png)
 
 The Overview reports 8 evaluated expectations, 0 successful, 8 unsuccessful
 (0% success), with sampled unexpected values shown for each failing column.
